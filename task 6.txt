@@ -1,0 +1,66 @@
+
+#include <stdio.h>
+
+
+struct Projeto {
+  int numero;
+  float saldo;
+};
+
+
+struct Projeto criarProjeto(int numero) {
+  struct Projeto projeto;
+  projeto.numero = numero;
+  projeto.saldo = 0;
+  return projeto;
+}
+
+int main() {
+  int n; 
+  printf("Digite o número de projetos: ");
+  scanf("%d", &n);
+
+  struct Projeto projetos[n]; 
+  for (int i = 0; i < n; i++) {
+    projetos[i] = criarProjeto(i+1); 
+  }
+
+  int numProjeto; 
+  float valor;
+  char tipo; 
+
+  printf("\nOperações:\n");
+  printf("Digite o número do projeto, valor e tipo de operação (R ou D)\n");
+  printf("Exemplo: 1 500 R (para adicionar R$ 500,00 no projeto 1)\n");
+
+
+  while (1) {
+    scanf("%d %f %c", &numProjeto, &valor, &tipo);
+
+  
+    if (numProjeto < 1 || numProjeto > n) {
+      printf("Número do projeto inválido!\n");
+      continue;
+    }
+
+ 
+    if (tipo == 'R') {
+      projetos[numProjeto-1].saldo += valor;
+    } else if (tipo == 'D') {
+      projetos[numProjeto-1].saldo -= valor;
+    } else {
+      printf("Tipo de operação inválido!\n");
+      continue;
+    }
+
+    printf("Operação realizada com sucesso!\n");
+  }
+
+ 
+  printf("\nSaldo final dos projetos:\n");
+  for (int i = 0; i < n; i++) {
+    printf("Projeto %d: R$ %.2f\n", projetos[i].numero, projetos[i].saldo);
+  }
+
+  return 0;
+}
